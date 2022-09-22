@@ -11,5 +11,4 @@ class User < ApplicationRecord
 
   has_many :reservations, dependent: :destroy
   has_many :vechiles, through: :group_entities
-
 end
