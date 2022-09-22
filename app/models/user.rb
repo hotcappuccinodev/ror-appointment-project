@@ -11,4 +11,15 @@ class User < ApplicationRecord
 
   has_many :reservations, dependent: :destroy
   has_many :vehicle, through: :reservations
+
+  ROLES = %i[user admin].freeze
+
+  def is?(requested_role)
+    role == requested_role.to_s
+  end
+
+  def admin?
+    is?('admin')
+  end
+
 end
