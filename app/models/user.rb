@@ -10,5 +10,5 @@ class User < ApplicationRecord
   validates :roles, presence: true
 
   has_many :reservations, dependent: :destroy
-  has_many :vechiles, through: :group_entities
+  has_many :vehicle, through: :reservations
 end
