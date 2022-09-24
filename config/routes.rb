@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index]
-      resources :vehicles, only: [:index, :show, :create]
-      resources :reservations, only: [:index, :show, :create, :destroy]
+      resources :reservations, only: [:index, :show]
+      resources :vehicles, only: [:index, :show, :create] do
+      resources :reservations, only: [ :create, :destroy]
+      end
     end
   end
   # Defines the root path route ("/")
