@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class User::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -10,9 +10,18 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+   def create
+    @user = User.create!(name: params[:name], password: params[:password], password_confirmation: params[:password_confirmation], email: params[:email], roles: params[:roles])
+    if @user
+      user_session[:user_id] = @user_id
+      render json: { status: 'Success', message: 'created users', data: @user }, status: :ok
+    else
+      render json: {
+        status: 500,
+        message: 'Registration failed'
+      }
+    end
+  end
 
   # GET /resource/edit
   # def edit
