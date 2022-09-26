@@ -13,7 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.create!(name: params[:name], password: params[:password], password_confirmation: params[:password_confirmation], email: params[:email], roles: params[:roles])
     if @user
-      # session[:user_id] = @user_id
       render json: { status: 'Success', message: 'created users', data: @user }, status: :ok
     else
       render json: {
