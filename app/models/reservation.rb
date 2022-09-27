@@ -4,6 +4,6 @@ class Reservation < ApplicationRecord
   validates :date, presence: true
   validates :city, presence: true
 
-  belongs_to :users, class_name: 'User', foreign_key: 'user_id'
-  belongs_to :vehicles, class_name: 'vehicle', foreign_key: 'vehicle_id'
+  belongs_to :user
+  belongs_to :vehicle
 end
