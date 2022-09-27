@@ -76,6 +76,7 @@ GEM
     bullet (7.0.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    cancancan (3.4.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug (1.6.2)
@@ -89,7 +90,6 @@ GEM
       warden (~> 1.2.3)
     digest (3.1.0)
     erubi (1.11.0)
-    ffi (1.15.5)
     ffi (1.15.5-x64-mingw-ucrt)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -128,15 +128,12 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.8-arm64-darwin)
-      racc (~> 1.4)
     nokogiri (1.13.8-x64-mingw-ucrt)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    pg (1.4.3)
     pg (1.4.3-x64-mingw-ucrt)
     public_suffix (5.0.0)
     puma (5.6.5)
@@ -175,7 +172,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.0)
     reline (0.3.1)
       io-console (~> 0.5)
     responders (3.0.1)
@@ -200,7 +197,7 @@ GEM
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2022.3)
+    tzinfo-data (1.2022.4)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.3.0)
     uniform_notifier (1.16.0)
@@ -212,12 +209,12 @@ GEM
     zeitwerk (2.6.0)
 
 PLATFORMS
-  arm64-darwin-21
   x64-mingw-ucrt
 
 DEPENDENCIES
   bootsnap
   bullet
+  cancancan
   debug
   devise
   ffi
