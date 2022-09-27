@@ -7,7 +7,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @user = User.create!(name: params[:name], password: params[:password],
-                         password_confirmation: params[:password_confirmation], email: params[:email], roles: params[:roles])
+                         password_confirmation: params[:password_confirmation], email: params[:email],
+                         roles: params[:roles])
     if @user
       render json: { status: 'Success', message: 'created users', data: @user }, status: :ok
     else
@@ -23,7 +24,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
 
   # DELETE /resource
- 
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
