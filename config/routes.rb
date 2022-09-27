@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+        registrations: 'users/registrations',
+        sessions: 'users/sessions'
+      }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   
   namespace :api do
