@@ -28,5 +28,4 @@ class User < ApplicationRecord
   def admin?
     is?('admin')
   end
-
 end
