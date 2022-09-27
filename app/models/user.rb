@@ -17,4 +17,15 @@ class User < ApplicationRecord
   def generate_authentication_token
     self.authentication_token = Devise.friendly_token
   end
+  has_many :vehicle, through: :reservations
+
+  ROLES = %i[user admin].freeze
+
+  def is?(requested_role)
+    role == requested_role.to_s
+  end
+
+  def admin?
+    is?('admin')
+  end
 end
