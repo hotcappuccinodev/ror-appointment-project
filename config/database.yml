@@ -24,12 +24,12 @@ default: &default
 development:
   <<: *default
   database: appointment_diary_backend_development
-  username: maqueen
-  password: north
-  host: localhost
-  port: 5432
-  schema_search_path: myapp,sharedapp,public
-  min_messages: notice
+  # username: maqueen
+  # password: north
+  # host: localhost
+  # port: 5432
+  # schema_search_path: myapp,sharedapp,public
+  # min_messages: notice
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -64,9 +64,9 @@ development:
 test:
   <<: *default
   database: appointment_diary_backend_test
-  host: 127.0.0.1
-  username: maqueen
-  password: north
+  # host: 127.0.0.1
+  # username: maqueen
+  # password: north
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
