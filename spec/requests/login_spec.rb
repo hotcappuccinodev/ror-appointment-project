@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'users/sign_in', type: :request do
   context 'sign' do
-    let(:user) {User.create!(name: 'John Doe', email: 'john@gmail.com', password: 'test123', roles: ['admin'])}
     before(:each) do
-      post user_session_path(user.email)
+      post user_session_path, params:{email: 'jane@gmail.com',password: 'test123'}
     end
      it 'Responds with ok status' do
       puts response
