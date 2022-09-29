@@ -8,8 +8,21 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
+  def create
+    @user = User.find_by(email: params['email'])
+
+    if @user.valid_password?(params[:password])
+      sign_in(@user)
+      render json: { status: 'Success', message: 'signed in', data: @user }, status: :ok
+    else
+      render json: { status: 'failed', message: 'unauthorized' }, status: 401
+    end
+  end
 
   # DELETE /resource/sign_out
+  # def destroy
+  #   super
+  # end
 
   # protected
 
