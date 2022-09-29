@@ -11,8 +11,12 @@ RSpec.describe 'users/sign_in', type: :request do
      end
 
      it 'Responds data' do
-      puts response.body
+      puts JSON.parse(response.body)['data']
       expect(response.body).to include('Success')
      end
+    it 'Responds data email jane@gmail.com' do
+       data = JSON.parse(response.body)['data']
+      expect(data['email']).to eq('jane@gmail.com')
+     end 
  end
 end
