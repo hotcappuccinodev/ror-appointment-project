@@ -2,7 +2,7 @@ class Api::V1::VehiclesController < ApplicationController
   before_action :set_vehicle, only: %i[show update destroy]
   before_action :tokenized
   before_action :authenticate_user!
-  
+
   def index
     @vehicles = Vehicle.all
     render json: { status: 'Success', message: 'Loaded vehicles', data: @vehicles }, status: :ok
