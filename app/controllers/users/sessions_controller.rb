@@ -23,8 +23,8 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     @user = current_user
     if @user
-    render json: { status: 'Success', message: 'signed out', data: @user }, status: :ok
-    sign_out(@user)
+      render json: { status: 'Success', message: 'signed out', data: @user }, status: :ok
+      sign_out(@user)
     else
       render json: { status: 'Failed', message: 'There is no user to sign out' }, status: :unauthorized
     end

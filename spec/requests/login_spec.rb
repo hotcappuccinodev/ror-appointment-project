@@ -5,20 +5,20 @@ RSpec.describe 'users/sign_in', type: :request do
     before(:each) do
       Rails.application.load_seed
       User.first.confirm
-      post user_session_path, params:{email: 'john@gmail.com',password: 'test123'}
+      post user_session_path, params: { email: 'john@gmail.com', password: 'test123' }
     end
-     it 'Responds with ok status' do
+    it 'Responds with ok status' do
       puts response
       expect(response).to have_http_status(:ok)
-     end
+    end
 
-     it 'The response body has success within ' do
+    it 'The response body has success within ' do
       puts JSON.parse(response.body)['data']
       expect(response.body).to include('Success')
-     end
+    end
     it 'Responds data has the email of the user signed in' do
-       data = JSON.parse(response.body)['data']
+      data = JSON.parse(response.body)['data']
       expect(data['email']).to eq('john@gmail.com')
-     end 
- end
+    end
+  end
 end
