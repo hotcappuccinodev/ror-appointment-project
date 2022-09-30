@@ -14,7 +14,7 @@ RSpec.describe 'users/', type: :request do
       puts JSON.parse(response.body)['data']
       expect(response.body).to include('Success')
      end
-    it 'Responds data email basemshams300@yahoo.com' do
+    it 'Responds data has email of the user signed up' do
        data = JSON.parse(response.body)['data']
       expect(data['email']).to eq('basemshams300@yahoo.com')
      end 
