@@ -9,7 +9,7 @@ class Api::V1::VehiclesController < ApplicationController
   end
 
   def show
-    render json: { status: 'Success', message: 'Loaded vehicles', data: @vehicle }, status: :ok
+    render json: { status: 'Success', message: 'Loaded vehicle', data: @vehicle }, status: :ok
   end
 
   def create

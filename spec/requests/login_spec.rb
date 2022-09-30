@@ -18,7 +18,7 @@ RSpec.describe 'users/sign_in', type: :request do
      end
     it 'Responds data has the email of the user signed in' do
        data = JSON.parse(response.body)['data']
-      expect(data['email']).to eq('jane@gmail.com')
+      expect(data['email']).to eq('john@gmail.com')
      end 
  end
 end

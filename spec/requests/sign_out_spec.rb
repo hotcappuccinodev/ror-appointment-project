@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'users/sign_in', type: :request do
+RSpec.describe 'users/sign_out', type: :request do
   context 'sign-out existing session' do
     before() do
       Rails.application.load_seed

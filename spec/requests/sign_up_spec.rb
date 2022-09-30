@@ -6,12 +6,10 @@ RSpec.describe 'users/', type: :request do
       post user_registration_path, params:{email: 'basemshams300@yahoo.com', password: '12345678', name: "Bassem", roles: ['user']}
     end
      it 'Responds with ok status' do
-      puts response
       expect(response).to have_http_status(:ok)
      end
 
      it 'Responds data' do
-      puts JSON.parse(response.body)['data']
       expect(response.body).to include('Success')
      end
     it 'Responds data has email of the user signed up' do
