@@ -140,22 +140,45 @@ paths:
         '200':
           description: successful
   "/users/sign_in":
-    get:
-      summary: new session
-      responses:
-        '200':
-          description: successful
     post:
       summary: create session
+      tags:
+      - Sign-in
+      description: Authenticates an user and returns a jwt token
+      parameters: []
       responses:
         '200':
           description: successful
-  "/users/sign_out":
-    delete:
-      summary: delete session
-      responses:
-        '200':
-          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: signed in
+                    data: "#<User:0x0000000109a3fdb8>"
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                invalid_credentials:
+                  value:
+                    status: failed
+                    message: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
 servers:
 - url: https://{defaultHost}
   variables:
