@@ -6,61 +6,106 @@ info:
 paths:
   "/api/v1/reservations":
     get:
-      summary: list reservations
+      summary: List all reservations for the user
+      tags:
+      - Reservation index
+      description: Shows all the reservations for the current user
+      parameters: []
       responses:
         '200':
           description: successful
-  "/api/v1/reservations/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show reservation
-      responses:
-        '200':
-          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: signed in
+                    data: "#<Reservation::ActiveRecord_Relation:0x000000010ce8f168>"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication_token:
+                  type: string
+              required:
+              - authentication_token
   "/api/v1/vehicles/{vehicle_id}/reservations":
-    parameters:
-    - name: vehicle_id
-      in: path
-      description: vehicle_id
-      required: true
-      schema:
-        type: string
     post:
       summary: create reservation
+      tags:
+      - Reservation create
+      description: Creates a new reservation
+      parameters: []
       responses:
         '200':
           description: successful
-  "/api/v1/vehicles/{vehicle_id}/reservations/{id}":
-    parameters:
-    - name: vehicle_id
-      in: path
-      description: vehicle_id
-      required: true
-      schema:
-        type: string
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    delete:
-      summary: delete reservation
-      responses:
-        '200':
-          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_create_reservation:
+                  value:
+                    status: Success
+                    message: created reservation
+                    data:
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                Failed_create_reservation:
+                  value:
+                    status: Failed
+                    message: Failed to create a new reservation
+                    data:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication_token:
+                  type: string
+                vehicle_id:
+                  type: integer
+                city:
+                  type: string
+                date:
+                  type: string
+              required:
+              - authentication_token
+              - city
+              - date
   "/api/v1/users":
     get:
-      summary: list users
+      summary: list all users
+      tags:
+      - Users index
+      description: Shows all the users for the current user
+      parameters: []
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: signed in
+                    data: "#<User::ActiveRecord_Relation:0x000000010d8cc978>"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication_token:
+                  type: string
+              required:
+              - authentication_token
   "/api/v1/vehicles":
     get:
       summary: list vehicles
@@ -100,64 +145,97 @@ paths:
       responses:
         '200':
           description: successful
-  "/users/cancel":
-    get:
-      summary: cancel registration
-      responses:
-        '200':
-          description: successful
-  "/users/sign_up":
-    get:
-      summary: new registration
-      responses:
-        '200':
-          description: successful
-  "/users/edit":
-    get:
-      summary: edit registration
-      responses:
-        '200':
-          description: successful
-  "/users":
-    patch:
-      summary: update registration
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update registration
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete registration
-      responses:
-        '200':
-          description: successful
+  "/users/":
     post:
-      summary: create registration
+      summary: create user
+      tags:
+      - Sign-up
+      description: Creates a new user
+      parameters: []
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                successfull_signup:
+                  value:
+                    status: Success
+                    message: created users
+                    data: "#<User:0x000000010e294988>"
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                Failed_SignUp:
+                  value:
+                    status: 500
+                    message: Registration failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                name:
+                  type: string
+                roles:
+                  type: array
+              required:
+              - email
+              - password
+              - password_confirmation
+              - name
+              - roles
   "/users/sign_in":
-    get:
-      summary: new session
-      responses:
-        '200':
-          description: successful
     post:
       summary: create session
+      tags:
+      - Sign-in
+      description: Authenticates an user and returns an authetication token
+      parameters: []
       responses:
         '200':
           description: successful
-  "/users/sign_out":
-    delete:
-      summary: delete session
-      responses:
-        '200':
-          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: signed in
+                    data: "#<User:0x000000010e2cd3c8>"
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                invalid_credentials:
+                  value:
+                    status: failed
+                    message: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000

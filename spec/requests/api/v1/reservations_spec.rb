@@ -1,80 +1,67 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/reservations', type: :request do
+RSpec.describe 'session controller', type: :request do
   path '/api/v1/reservations' do
-    get('list reservations') do
+    get('List all reservations for the user') do
+      tags 'Reservation index'
+      description 'Shows all the reservations for the current user'
+      consumes 'application/json'
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+          authentication_token: { type: :string }
+        },
+        required: %w[authentication_token]
+      }
+
       response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+        @reservations = Reservation.where(user: User.last)
+        let(:params) { { authentication_token: User.last.authentication_token } }
+        example 'application/json', :successfull_login, {
+          status: 'Success', message: 'signed in', data: @reservations
+        }
+
         run_test!
       end
     end
   end
-
-  path '/api/v1/reservations/{id}' do
-    # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
-
-    get('show reservation') do
-      response(200, 'successful') do
-        let(:id) { '123' }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
+  # rubocop:disable Metrics/BlockLength
   path '/api/v1/vehicles/{vehicle_id}/reservations' do
-    # You'll want to customize the parameter types...
-    parameter name: 'vehicle_id', in: :path, type: :string, description: 'vehicle_id'
-
     post('create reservation') do
-      response(200, 'successful') do
-        let(:vehicle_id) { '123' }
+      tags 'Reservation create'
+      description 'Creates a new reservation'
+      consumes 'application/json'
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+          authentication_token: { type: :string },
+          vehicle_id: { type: :integer },
+          city: { type: :string },
+          date: { type: :string }
+        },
+        required: %w[authentication_token city date]
+      }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
+      response(200, 'successful') do
+        let(:params) do
+          { authentication_token: User.last.authentication_token, vehicle_id: Vehicle.first.id, city: 'London',
+            date: '12/12/2021' }
         end
+        example 'application/json', :successfull_create_reservation, {
+          status: 'Success', message: 'created reservation', data: Reservation.last
+        }
         run_test!
       end
-    end
-  end
 
-  path '/api/v1/vehicles/{vehicle_id}/reservations/{id}' do
-    # You'll want to customize the parameter types...
-    parameter name: 'vehicle_id', in: :path, type: :string, description: 'vehicle_id'
-    parameter name: 'id', in: :path, type: :string, description: 'id'
+      response(401, 'unauthorized') do
+        let(:params) { { vehicle_id: Vehicle.first.id, city: 'London', date: '12/12/2021' } }
 
-    delete('delete reservation') do
-      response(200, 'successful') do
-        let(:vehicle_id) { '123' }
-        let(:id) { '123' }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+        example 'application/json', :Failed_create_reservation, {
+          status: 'Failed', message: 'Failed to create a new reservation', data: @reservations
+        }
         run_test!
       end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
