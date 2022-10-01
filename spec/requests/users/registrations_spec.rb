@@ -15,13 +15,13 @@ RSpec.describe 'regestration controller', type: :request do
           name: { type: :string },
           roles: { type: :array }
         },
-        required: %w[email password]
+        required: %w[email password password_confirmation name roles]
       }
 
       response(200, 'successful') do
         let(:params) { { email: 'user@email', password: '1234567', name: 'user', roles: ['admin'] } }
-        example 'application/json', :successfull_login, {
-          status: 'Success', message: 'created users', data: @user
+        example 'application/json', :successfull_signup, {
+          status: 'Success', message: 'created users', data: User.find_by(email: User.last.email)
         }
         run_test!
       end
@@ -29,7 +29,7 @@ RSpec.describe 'regestration controller', type: :request do
       response(401, 'unauthorized') do
         let(:params) { { email: 'test@test.com', password: 'password123' } }
 
-        example 'application/json', :invalid_credentials, {
+        example 'application/json', :Failed_SignUp, {
           status: 500,
         message: 'Registration failed'
         }

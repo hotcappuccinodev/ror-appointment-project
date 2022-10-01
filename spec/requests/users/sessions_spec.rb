@@ -4,7 +4,7 @@ RSpec.describe 'session controller', type: :request do
   path '/users/sign_in' do
     post('create session') do
       tags 'Sign-in'
-      description 'Authenticates an user and returns a jwt token'
+      description 'Authenticates an user and returns an authetication token'
       consumes 'application/json'
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -16,7 +16,7 @@ RSpec.describe 'session controller', type: :request do
       }
 
       response(200, 'successful') do
-        @user = User.create!(name: 'User123', email: 'test3@test3.com', password: 'password', roles: ['user']) 
+        @user = User.last
         @user.confirm
         let(:params) { { email: user.email, password: user.password } }
         example 'application/json', :successfull_login, {
