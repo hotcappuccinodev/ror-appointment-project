@@ -4,7 +4,7 @@ RSpec.describe 'users/sign_out', type: :request do
   context 'sign-out existing session' do
     before do
       Rails.application.load_seed
-      User.first.confirm
+      User.find_by(email:'john@gmail.com' ).confirm
       post user_session_path, params: { email: 'john@gmail.com', password: 'test123' }
       delete destroy_user_session_path
     end
