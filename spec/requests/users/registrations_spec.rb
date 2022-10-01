@@ -1,6 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'regestration controller', type: :request do
+  # rubocop:disable Metrics/BlockLength
   path '/users/' do
     post('create user') do
       tags 'Sign-up'
@@ -31,10 +32,11 @@ RSpec.describe 'regestration controller', type: :request do
 
         example 'application/json', :Failed_SignUp, {
           status: 500,
-        message: 'Registration failed'
+          message: 'Registration failed'
         }
         run_test!
       end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

@@ -15,7 +15,7 @@ RSpec.describe 'api/v1/users', type: :request do
       }
 
       response(200, 'successful') do
-        @users = User.all 
+        @users = User.all
         let(:params) { { authentication_token: User.last.authentication_token } }
         example 'application/json', :successfull_login, {
           status: 'Success', message: 'signed in', data: @users

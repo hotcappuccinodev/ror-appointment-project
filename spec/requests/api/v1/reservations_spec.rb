@@ -15,16 +15,17 @@ RSpec.describe 'session controller', type: :request do
       }
 
       response(200, 'successful') do
-        @reservations = Reservation.where(user: User.last) 
+        @reservations = Reservation.where(user: User.last)
         let(:params) { { authentication_token: User.last.authentication_token } }
         example 'application/json', :successfull_login, {
           status: 'Success', message: 'signed in', data: @reservations
         }
-      
+
         run_test!
       end
     end
   end
+  # rubocop:disable Metrics/BlockLength
   path '/api/v1/vehicles/{vehicle_id}/reservations' do
     post('create reservation') do
       tags 'Reservation create'
@@ -33,16 +34,19 @@ RSpec.describe 'session controller', type: :request do
       parameter name: :params, in: :body, schema: {
         type: :object,
         properties: {
-          authentication_token: { type: :string },          
+          authentication_token: { type: :string },
           vehicle_id: { type: :integer },
           city: { type: :string },
           date: { type: :string }
         },
-        required: %w[ authentication_token city date ]
+        required: %w[authentication_token city date]
       }
 
       response(200, 'successful') do
-        let(:params) { { authentication_token: User.last.authentication_token, vehicle_id: Vehicle.first.id, city: 'London', date: '12/12/2021' } }
+        let(:params) do
+          { authentication_token: User.last.authentication_token, vehicle_id: Vehicle.first.id, city: 'London',
+            date: '12/12/2021' }
+        end
         example 'application/json', :successfull_create_reservation, {
           status: 'Success', message: 'created reservation', data: Reservation.last
         }
@@ -60,3 +64,4 @@ RSpec.describe 'session controller', type: :request do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
