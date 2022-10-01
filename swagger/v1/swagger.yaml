@@ -22,7 +22,7 @@ paths:
                   value:
                     status: Success
                     message: signed in
-                    data: "#<Reservation::ActiveRecord_Relation:0x000001a4c3fbed98>"
+                    data: "#<Reservation::ActiveRecord_Relation:0x000001376b3123a8>"
       requestBody:
         content:
           application/json:
@@ -50,7 +50,7 @@ paths:
                   value:
                     status: Success
                     message: created reservation
-                    data: "#<Reservation:0x000001a4c3eb2e18>"
+                    data: "#<Reservation:0x000001376b36fdf0>"
         '401':
           description: unauthorized
           content:
@@ -96,7 +96,7 @@ paths:
                   value:
                     status: Success
                     message: signed in
-                    data: "#<User::ActiveRecord_Relation:0x000001a4c59c9260>"
+                    data: "#<User::ActiveRecord_Relation:0x0000013766550a98>"
       requestBody:
         content:
           application/json:
@@ -134,7 +134,7 @@ paths:
                   value:
                     status: Success
                     message: Loaded vehicles
-                    data: "#<Vehicle::ActiveRecord_Relation:0x000001a4c31b83c0>"
+                    data: "#<Vehicle::ActiveRecord_Relation:0x000001376576f668>"
         '401':
           description: unauthorized
           content:
@@ -160,7 +160,7 @@ paths:
                   value:
                     status: Success
                     message: Created Vehicle
-                    data: "#<Vehicle:0x000001a4c17c4310>"
+                    data: "#<Vehicle:0x00000137663f7138>"
       requestBody:
         content:
           application/json:
@@ -254,8 +254,16 @@ paths:
                 success:
                   value:
                     status: Success
-                    message: Updeted Vehicle Succesfully
-                    data: "#<Vehicle:0x000001a4c162d128>"
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
     put:
       summary: update vehicle
       tags:
@@ -281,8 +289,16 @@ paths:
                 success:
                   value:
                     status: Success
-                    message: Updeted Vehicle Succesfully
-                    data: "#<Vehicle:0x000001a4c09428c8>"
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
     delete:
       summary: delete vehicle
       tags:
@@ -308,8 +324,16 @@ paths:
                 success:
                   value:
                     status: Success
-                    message: Deleted Vehicle Succesfully
-                    data: "#<Vehicle:0x000001a4c1b8ff30>"
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
   "/users/":
     post:
       summary: create user
@@ -327,7 +351,7 @@ paths:
                   value:
                     status: Success
                     message: created users
-                    data: "#<User:0x000001a4c2d8ab40>"
+                    data: "#<User:0x0000013768ce3ce0>"
         '401':
           description: unauthorized
           content:
@@ -376,7 +400,7 @@ paths:
                   value:
                     status: Success
                     message: signed in
-                    data: "#<User:0x000001a4c30e7c48>"
+                    data: "#<User:0x0000013769745620>"
         '401':
           description: unauthorized
           content:
