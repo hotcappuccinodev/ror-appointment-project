@@ -100,45 +100,52 @@ paths:
       responses:
         '200':
           description: successful
-  "/users/cancel":
-    get:
-      summary: cancel registration
-      responses:
-        '200':
-          description: successful
-  "/users/sign_up":
-    get:
-      summary: new registration
-      responses:
-        '200':
-          description: successful
-  "/users/edit":
-    get:
-      summary: edit registration
-      responses:
-        '200':
-          description: successful
-  "/users":
-    patch:
-      summary: update registration
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update registration
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete registration
-      responses:
-        '200':
-          description: successful
+  "/users/":
     post:
-      summary: create registration
+      summary: create user
+      tags:
+      - Sign-up
+      description: Creates a new user
+      parameters: []
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: created users
+                    data:
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                invalid_credentials:
+                  value:
+                    status: 500
+                    message: Registration failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                name:
+                  type: string
+                roles:
+                  type: array
+              required:
+              - email
+              - password
   "/users/sign_in":
     post:
       summary: create session
@@ -156,7 +163,7 @@ paths:
                   value:
                     status: Success
                     message: signed in
-                    data: "#<User:0x0000000109a3fdb8>"
+                    data: "#<User:0x00000001073bcee8>"
         '401':
           description: unauthorized
           content:

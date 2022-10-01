@@ -1,104 +1,40 @@
 require 'swagger_helper'
-# rubocop:disable Metrics/BlockLength
 
-RSpec.describe 'users/registrations', type: :request do
-  path '/users/cancel' do
-    get('cancel registration') do
+RSpec.describe 'regestration controller', type: :request do
+  path '/users/' do
+    post('create user') do
+      tags 'Sign-up'
+      description 'Creates a new user'
+      consumes 'application/json'
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        properties: {
+          email: { type: :string },
+          password: { type: :string },
+          password_confirmation: { type: :string },
+          name: { type: :string },
+          roles: { type: :array }
+        },
+        required: %w[email password]
+      }
+
       response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+        let(:params) { { email: 'user@email', password: '1234567', name: 'user', roles: ['admin'] } }
+        example 'application/json', :successfull_login, {
+          status: 'Success', message: 'created users', data: @user
+        }
         run_test!
       end
-    end
-  end
 
-  path '/users/sign_up' do
-    get('new registration') do
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
+      response(401, 'unauthorized') do
+        let(:params) { { email: 'test@test.com', password: 'password123' } }
 
-  path '/users/edit' do
-    get('edit registration') do
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
-  path '/users' do
-    patch('update registration') do
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    put('update registration') do
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    delete('delete registration') do
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    post('create registration') do
-      response(200, 'successful') do
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+        example 'application/json', :invalid_credentials, {
+          status: 500,
+        message: 'Registration failed'
+        }
         run_test!
       end
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

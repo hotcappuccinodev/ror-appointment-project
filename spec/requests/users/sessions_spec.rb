@@ -16,7 +16,7 @@ RSpec.describe 'session controller', type: :request do
       }
 
       response(200, 'successful') do
-        @user = User.create!(name: 'User123', email: 'test١@test١.com', password: 'password', roles: ['user']) 
+        @user = User.create!(name: 'User123', email: 'test3@test3.com', password: 'password', roles: ['user']) 
         @user.confirm
         let(:params) { { email: user.email, password: user.password } }
         example 'application/json', :successfull_login, {
