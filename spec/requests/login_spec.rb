@@ -4,7 +4,7 @@ RSpec.describe 'users/sign_in', type: :request do
   context 'sign_in' do
     before(:each) do
       Rails.application.load_seed
-      User.find_by(email:'john@gmail.com' ).confirm
+      User.find_by(email: 'john@gmail.com').confirm
       post user_session_path, params: { email: 'john@gmail.com', password: 'test123' }
     end
     it 'Responds with ok status' do
