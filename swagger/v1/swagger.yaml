@@ -1,0 +1,525 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+  description: A friendly api to book vehicle reservations
+paths:
+  "/api/v1/reservations":
+    get:
+      summary: List all reservations for the user
+      tags:
+      - Reservation index
+      description: Shows all the reservations for the current user
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    user:
+                      id: 4
+                      name: Jane Doe
+                      email: jane123@gmail.com
+                      created_at: '2022-10-01T22:01:18.257Z'
+                      updated_at: '2022-10-01T22:01:18.424Z'
+                      roles:
+                      - admin
+                      authentication_token: 2eTGmkNGx6HG7rp6S4zz
+                    data:
+                    - id: 6
+                      user_id: 4
+                      vehicle_id: 4
+                      date: '2022-09-24'
+                      city: capetown
+                      created_at: '2022-10-01T22:01:18.563Z'
+                      updated_at: '2022-10-01T22:01:18.563Z'
+                    - id: 7
+                      user_id: 4
+                      vehicle_id: 6
+                      date: '2022-09-24'
+                      city: lusaka
+                      created_at: '2022-10-01T22:01:18.568Z'
+                      updated_at: '2022-10-01T22:01:18.568Z'
+  "/api/v1/vehicles/{vehicle_id}/reservations":
+    parameters:
+    - name: vehicle_id
+      in: path
+      description: vehicle id
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: create reservation
+      tags:
+      - Reservation create
+      description: Creates a new reservation
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_create_reservation:
+                  value:
+                    status: Success
+                    message: created reservation
+                    data:
+                      id: 9
+                      user_id: 4
+                      vehicle_id: 6
+                      date: '2022-10-02'
+                      city: bravos
+                      created_at: '2022-10-01T22:21:11.569Z'
+                      updated_at: '2022-10-01T22:21:11.569Z'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                Failed_create_reservation:
+                  value:
+                    status: Failed
+                    message: Failed to create a new reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication_token:
+                  type: string
+                city:
+                  type: string
+                date:
+                  type: string
+              required:
+              - authentication_token
+              - city
+              - date
+  "/api/v1/users":
+    get:
+      summary: list all users
+      tags:
+      - Users index
+      description: Shows all the users for the current user
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: Loaded users
+                    data:
+                    - id: 3
+                      name: John Doe
+                      email: john123@gmail.com
+                      created_at: '2022-10-01T22:01:17.342Z'
+                      updated_at: '2022-10-01T22:01:18.420Z'
+                      roles:
+                      - admin
+                      authentication_token: h1HWsdfRxFHziZB69Vre
+                    - id: 4
+                      name: Jane Doe
+                      email: jane123@gmail.com
+                      created_at: '2022-10-01T22:01:18.257Z'
+                      updated_at: '2022-10-01T22:01:18.424Z'
+                      roles:
+                      - admin
+                      authentication_token: 2eTGmkNGx6HG7rp6S4zz
+  "/api/v1/vehicles":
+    get:
+      summary: list vehicles
+      tags:
+      - vehicles
+      - all
+      description: List all vehicles
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                success:
+                  value:
+                    status: Success
+                    message: Loaded vehicles
+                    data:
+                    - id: 5
+                      brand: Macendiz
+                      model: Benz-30
+                      price: '90.0'
+                      image: image-Benz
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.296Z'
+                      updated_at: '2022-10-01T04:51:07.296Z'
+                    - id: 6
+                      brand: G-Wagon
+                      model: G-wagon-15
+                      price: '95.0'
+                      image: image-wagon
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.302Z'
+                      updated_at: '2022-10-01T04:51:07.302Z'
+                    - id: 7
+                      brand: Farari
+                      model: BMW
+                      price: '450.0'
+                      image: farari.png
+                      description: Some text here
+                      created_at: '2022-10-01T12:39:00.705Z'
+                      updated_at: '2022-10-01T12:39:00.705Z'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                unauthorized:
+                  value:
+                    error: You need to sign in or sign up before continuing.
+    post:
+      summary: create vehicle
+      tags:
+      - vehicle
+      - create
+      description: Creates a vehicle
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                success:
+                  value:
+                    status: Success
+                    message: Loaded vehicle
+                    data:
+                      id: 6
+                      brand: G-Wagon
+                      model: G-wagon-15
+                      price: '95.0'
+                      image: image-wagon
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T22:01:18.479Z'
+                      updated_at: '2022-10-01T22:01:18.479Z'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication_token:
+                  type: string
+                brand:
+                  type: string
+                model:
+                  type: string
+                image:
+                  type: string
+                price:
+                  type: decimal
+                description:
+                  type: text
+              required:
+              - authenticate_token
+              - brand
+              - model
+              - image
+              - price
+              - description
+  "/api/v1/vehicles/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: vehicle id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show vehicle
+      tags:
+      - vehicle
+      - single
+      description: Should retrieve single vehicle by id
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                success:
+                  value:
+                    status: Success
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
+    patch:
+      summary: update vehicle
+      tags:
+      - vehicle
+      - update-patch
+      description: Should update single vehicle by id
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                success:
+                  value:
+                    status: Success
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
+    put:
+      summary: update vehicle
+      tags:
+      - vehicle
+      - update-put
+      description: Should update single vehicle by id
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                success:
+                  value:
+                    status: Success
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
+    delete:
+      summary: delete vehicle
+      tags:
+      - vehicle
+      - delete
+      description: Should delete single vehicle by id
+      parameters:
+      - name: params
+        in: query
+        schema:
+          type: object
+          properties:
+            authentication_token:
+              type: string
+          required:
+          - authentication_token
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                success:
+                  value:
+                    status: Success
+                    message: Loaded vehicle
+                    data:
+                      id: 4
+                      brand: BWM
+                      model: BMW-30
+                      price: '80.0'
+                      image: image-bmw
+                      description: good and lightspeed with low consumptiom
+                      created_at: '2022-10-01T04:51:07.286Z'
+                      updated_at: '2022-10-01T04:51:07.286Z'
+  "/users/":
+    post:
+      summary: create user
+      tags:
+      - Sign-up
+      description: Creates a new user
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_signup:
+                  value:
+                    status: Success
+                    message: created users
+                    data:
+                      id: 7
+                      name: Jerrybrean
+                      email: jerry2@gmail.com
+                      created_at: '2022-10-01T23:14:34.994Z'
+                      updated_at: '2022-10-01T23:14:34.994Z'
+                      roles:
+                      - user
+                      authentication_token: M_FPaPkUFVDD1AqPT91j
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              examples:
+                Failed_SignUp:
+                  value:
+                    status: 422
+                    message: Registration failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                name:
+                  type: string
+                roles:
+                  type: array
+              required:
+              - email
+              - password
+              - password_confirmation
+              - name
+              - roles
+  "/users/sign_in":
+    post:
+      summary: create session
+      tags:
+      - Sign-in
+      description: Authenticates an user and returns an authetication token
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              examples:
+                successfull_login:
+                  value:
+                    status: Success
+                    message: signed in
+                    data:
+                      id: 9
+                      name: Jerrybrean
+                      email: jerry6@gmail.com
+                      created_at: '2022-10-02T00:14:02.059Z'
+                      updated_at: '2022-10-02T00:14:04.681Z'
+                      roles:
+                      - user
+                      authentication_token: rxorR4izaynzH3d_c_pn
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                invalid_credentials:
+                  value:
+                    status: failed
+                    message: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
