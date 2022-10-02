@@ -3,7 +3,7 @@ class Api::V1::ReservationsController < ApplicationController
   before_action :authenticate_user!
   def index
     @reservations = Reservation.where(user_id: current_user.id)
-    render json: { status: 'Success', user: current_user, data: {@reservations} }, status: :ok
+    render json: { status: 'Success', user: current_user, data: @reservations }, status: :ok
   end
 
   def show; end

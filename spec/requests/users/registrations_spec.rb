@@ -20,18 +20,30 @@ RSpec.describe 'regestration controller', type: :request do
       }
 
       response(200, 'successful') do
-        let(:params) { { email: 'user@email', password: '1234567', name: 'user', roles: ['admin'] } }
+        let(:params) { { email: 'user@email', password: '1234567', name: 'user123', roles: ['admin'] } }
         example 'application/json', :successfull_signup, {
-          status: 'Success', message: 'created users', data: User.find_by(email: User.last.email)
+          status: 'Success',
+          message: 'created users',
+          data: {
+            id: 7,
+            name: 'Jerrybrean',
+            email: 'jerry2@gmail.com',
+            created_at: '2022-10-01T23:14:34.994Z',
+            updated_at: '2022-10-01T23:14:34.994Z',
+            roles: [
+              'user'
+            ],
+            authentication_token: 'M_FPaPkUFVDD1AqPT91j'
+          }
         }
         run_test!
       end
 
-      response(401, 'unauthorized') do
-        let(:params) { { email: 'test@test.com', password: 'password123' } }
+      response(422, 'Unprocessable Entity') do
+        let(:params) { { email: 'user@email', password: '1234567', name: 'user123' } }
 
         example 'application/json', :Failed_SignUp, {
-          status: 500,
+          status: 422,
           message: 'Registration failed'
         }
         run_test!

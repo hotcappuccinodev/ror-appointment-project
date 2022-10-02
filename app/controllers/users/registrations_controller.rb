@@ -6,16 +6,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    @user = User.create!(name: params[:name], password: params[:password],
-                         password_confirmation: params[:password_confirmation], email: params[:email],
-                         roles: params[:roles])
-    if @user
+    @user = User.new(name: params[:name], password: params[:password],
+                     password_confirmation: params[:password_confirmation], email: params[:email],
+                     roles: params[:roles])
+    if @user.save
       render json: { status: 'Success', message: 'created users', data: @user }, status: :ok
     else
       render json: {
-        status: 500,
+        status: 422,
         message: 'Registration failed'
-      }
+      }, status: 422
     end
   end
 
