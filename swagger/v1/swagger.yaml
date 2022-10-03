@@ -519,6 +519,10 @@ paths:
               - email
               - password
 servers:
+- url: https://{herokuapp}
+  variables:
+    herokuapp:
+      default: book-vehicle.herokuapp.com
 - url: http://{defaultHost}
   variables:
     defaultHost:

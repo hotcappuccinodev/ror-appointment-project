@@ -12,10 +12,7 @@ Rails.application.configure do
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
-  config.action_mailer.default_url_options = { host: 'book-reservations.herokuapp.com',protocal: 'https' }
   config.eager_load = true
-  config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.perform_deliveries = true
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
