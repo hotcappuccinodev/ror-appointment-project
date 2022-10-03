@@ -23,6 +23,14 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
+          url: 'https://{herokuapp}',
+          variables: {
+            herokuapp: {
+              default: 'book-vehicle.herokuapp.com'
+            }
+          }
+        },
+        {
           url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
