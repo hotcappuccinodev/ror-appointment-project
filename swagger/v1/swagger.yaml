@@ -1,7 +1,7 @@
 ---
 openapi: 3.0.1
 info:
-  title: API V1
+  title: book-vehicle API V1
   version: v1
   description: A friendly api to book vehicle reservations
 paths:
