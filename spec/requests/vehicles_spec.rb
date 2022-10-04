@@ -4,8 +4,6 @@ require 'rails_helper'
 RSpec.describe '/api/v1/vehicles', type: :request do
   context 'Get vehicles ' do
     before(:each) do
-      Rails.application.load_seed
-      User.first.confirm
       get api_v1_vehicles_path, params: { authentication_token: User.first.authentication_token }
     end
 
@@ -19,7 +17,6 @@ RSpec.describe '/api/v1/vehicles', type: :request do
       data = JSON.parse(response.body)
       expect(data['message']).to eq('Loaded vehicle')
     end
-
     it 'List brand Vehicle' do
       get api_v1_vehicle_path(Vehicle.first.id), params: { authentication_token: User.first.authentication_token }
       data = JSON.parse(response.body)['data']['brand']
@@ -29,7 +26,7 @@ RSpec.describe '/api/v1/vehicles', type: :request do
       post api_v1_vehicles_path,
            params: { authentication_token: User.first.authentication_token,
                      brand: 'Mecedz', model: 'benz-30', image: 'image-bmw',
-                     price: 80, description: 'good and lightspeed with low consumptiom' }
+                     price: 80, visible: true, description: 'good and lightspeed with low consumptiom' }
       data = JSON.parse(response.body)
       expect(data['message']).to eq('Created Vehicle')
     end
@@ -37,11 +34,10 @@ RSpec.describe '/api/v1/vehicles', type: :request do
       patch api_v1_vehicle_path(Vehicle.last.id),
             params: { authentication_token: User.first.authentication_token,
                       brand: 'Lambo', model: 'lambo-30', image: 'image-bmw',
-                      price: 80, description: 'good and lightspeed with low consumptiom' }
+                      price: 80, visible: true, description: 'good and lightspeed with low consumptiom' }
       data = JSON.parse(response.body)
       expect(data['message']).to eq('Updeted Vehicle Succesfully')
     end
-
     it 'Deletes a vehicle' do
       delete api_v1_vehicle_path(Vehicle.last.id), params: { authentication_token: User.first.authentication_token }
       data = JSON.parse(response.body)
@@ -50,8 +46,6 @@ RSpec.describe '/api/v1/vehicles', type: :request do
   end
   context 'Unauthorized access' do
     before(:each) do
-      Rails.application.load_seed
-      User.first.confirm
       get api_v1_vehicles_path
     end
     it 'Respnse unauthrozed' do

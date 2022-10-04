@@ -16,8 +16,6 @@ RSpec.describe 'session controller', type: :request do
       }
 
       response(200, 'successful') do
-        @user = User.last
-        @user.confirm
         let(:params) { { email: 'jane123@gmail.com', password: 'test123' } }
         example 'application/json', :successfull_login, {
           status: 'Success',
@@ -42,6 +40,22 @@ RSpec.describe 'session controller', type: :request do
 
         example 'application/json', :invalid_credentials, {
           status: 'failed', message: 'unauthorized'
+        }
+        run_test!
+      end
+    end
+  end
+
+  path '/users/sign_out' do
+    delete('delete session') do
+      tags 'Sign-out'
+      description ' Signs out user in session'
+      produces 'application/json'
+
+      response(401, 'unauthorized') do
+        example 'application/json', :unauthorized, {
+          status: 'Failed',
+          message: 'There is no user to sign out'
         }
         run_test!
       end

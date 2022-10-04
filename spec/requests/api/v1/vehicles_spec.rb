@@ -26,6 +26,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
               model: 'Benz-30',
               price: '90.0',
               image: 'image-Benz',
+              visible: 'true',
               description: 'good and lightspeed with low consumptiom',
               created_at: '2022-10-01T04:51:07.296Z',
               updated_at: '2022-10-01T04:51:07.296Z'
@@ -35,6 +36,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
               brand: 'G-Wagon',
               model: 'G-wagon-15',
               price: '95.0',
+              visible: 'true',
               image: 'image-wagon',
               description: 'good and lightspeed with low consumptiom',
               created_at: '2022-10-01T04:51:07.302Z',
@@ -45,6 +47,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
               brand: 'Farari',
               model: 'BMW',
               price: '450.0',
+              visible: 'true',
               image: 'farari.png',
               description: 'Some text here',
               created_at: '2022-10-01T12:39:00.705Z',
@@ -75,6 +78,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
           model: { type: :string },
           image: { type: :string },
           price: { type: :decimal },
+          visible: { type: :boolean },
           description: { type: :text }
         },
         required: %w[authenticate_token brand model image price description]
@@ -83,7 +87,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
         let(:params) do
           { authentication_token: User.last.authentication_token,
             brand: 'Mecedz', model: 'benz-30', image: 'image-bmw',
-            price: 80, description: 'good and lightspeed with low consumptiom' }
+            price: 80, visible: true, description: 'good and lightspeed with low consumptiom' }
         end
         example 'application/json', 'success', {
           status: 'Success',
@@ -93,6 +97,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
             brand: 'G-Wagon',
             model: 'G-wagon-15',
             price: '95.0',
+            visible: 'true',
             image: 'image-wagon',
             description: 'good and lightspeed with low consumptiom',
             created_at: '2022-10-01T22:01:18.479Z',
@@ -121,7 +126,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
         let(:params) { { authentication_token: User.first.authentication_token } }
         example 'application/json', 'success', {
           status: 'Success', message: 'Loaded vehicle',
-          data: { id: 4, brand: 'BWM', model: 'BMW-30', price: '80.0',
+          data: { id: 4, brand: 'BWM', model: 'BMW-30', price: '80.0', visible: 'true',
                   image: 'image-bmw', description: 'good and lightspeed with low consumptiom',
                   created_at: '2022-10-01T04:51:07.286Z', updated_at: '2022-10-01T04:51:07.286Z' }
         }
@@ -144,11 +149,11 @@ RSpec.describe 'api/v1/vehicles', type: :request do
         let(:params) do
           { authentication_token: User.first.authentication_token,
             brand: 'Lambo', model: 'lambo-30', image: 'image-bmw',
-            price: 80, description: 'good and lightspeed with low consumptiom' }
+            price: 80, visible: true, description: 'good and lightspeed with low consumptiom' }
         end
         example 'application/json', 'success', {
           status: 'Success', message: 'Loaded vehicle',
-          data: { id: 4, brand: 'BWM', model: 'BMW-30', price: '80.0',
+          data: { id: 4, brand: 'BWM', model: 'BMW-30', price: '80.0', visible: 'true',
                   image: 'image-bmw', description: 'good and lightspeed with low consumptiom',
                   created_at: '2022-10-01T04:51:07.286Z', updated_at: '2022-10-01T04:51:07.286Z' }
         }
@@ -171,11 +176,11 @@ RSpec.describe 'api/v1/vehicles', type: :request do
         let(:params) do
           { authentication_token: User.first.authentication_token,
             brand: 'Lambo', model: 'lambo-30', image: 'image-bmw',
-            price: 80, description: 'good and lightspeed with low consumptiom' }
+            price: 80, visible: true, description: 'good and lightspeed with low consumptiom' }
         end
         example 'application/json', 'success', {
           status: 'Success', message: 'Loaded vehicle',
-          data: { id: 4, brand: 'BWM', model: 'BMW-30', price: '80.0',
+          data: { id: 4, brand: 'BWM', model: 'BMW-30', price: '80.0', visible: 'true',
                   image: 'image-bmw', description: 'good and lightspeed with low consumptiom',
                   created_at: '2022-10-01T04:51:07.286Z', updated_at: '2022-10-01T04:51:07.286Z' }
         }
@@ -199,7 +204,7 @@ RSpec.describe 'api/v1/vehicles', type: :request do
         example 'application/json', 'success', {
           status: 'Success', message: 'Loaded vehicle',
           data: { id: 4,
-                  brand: 'BWM', model: 'BMW-30', price: '80.0',
+                  brand: 'BWM', model: 'BMW-30', price: '80.0', visible: 'true',
                   image: 'image-bmw', description: 'good and lightspeed with low consumptiom',
                   created_at: '2022-10-01T04:51:07.286Z', updated_at: '2022-10-01T04:51:07.286Z' }
         }
