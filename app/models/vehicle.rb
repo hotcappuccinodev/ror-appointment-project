@@ -1,5 +1,5 @@
 class Vehicle < ApplicationRecord
-  validates :brand, :model, :description, :image, presence: true
+  validates :brand, :model, :description, :image, :visible, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :reservations, dependent: :destroy

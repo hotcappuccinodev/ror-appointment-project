@@ -44,6 +44,6 @@ class Api::V1::VehiclesController < ApplicationController
   end
 
   def vehicle_params
-    params.permit(:brand, :model, :price, :image, :description)
+    params.permit(:brand, :model, :price, :image, :visible, :description)
   end
 end
