@@ -49,24 +49,13 @@ RSpec.describe 'session controller', type: :request do
   path '/users/sign_out' do
     delete('delete session') do
       tags 'Sign-out'
-      description 'Authenticates an user and signs out user'
+      description ' Signs out user in session'
       produces 'application/json'
 
-      response(200, 'successful') do
-        example 'application/json', :successfull_sign_out, {
-          status: 'Success',
-          message: 'signed out',
-          data: {
-            id: 9,
-            name: 'Jerrybrean',
-            email: 'jerry6@gmail.com',
-            created_at: '2022-10-02T00:14:02.059Z',
-            updated_at: '2022-10-02T00:14:04.681Z',
-            roles: [
-              'user'
-            ],
-            authentication_token: 'rxorR4izaynzH3d_c_pn'
-          }
+      response(401, 'unauthorized') do
+        example 'application/json', :unauthorized, {
+          status: 'Failed',
+          message: 'There is no user to sign out'
         }
         run_test!
       end
