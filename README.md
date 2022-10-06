@@ -95,4 +95,4 @@ GitHub: @Fatima-hub333
 Give a ⭐️ if you like this project!
 
 📝 License
-This project is MIT licensed.
+This project is [MIT](https://github.com/Fatima-hub333/appointment-diary-backend/blob/dev/licenselicensed).
