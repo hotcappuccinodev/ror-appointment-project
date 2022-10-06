@@ -26,10 +26,11 @@
 ### Kanban Board
 - [kanban](https://github.com/Fatima-hub333/appointment-diary/issues/56#issuecomment-1254172387)
 - [Project]https://github.com/Fatima-hub333/appointment-diary-backend/tree/main)
-- We are a group of 3 people:
-@basem909
-@kinginthenorthcodez
-@Fatima-hub333
+- 
+🥇 We are a group of 3 people:
+ - @basem909
+ - @kinginthenorthcodez
+ - @Fatima-hub333
 > git clone <https://github.com/Fatima-hub333/appointment-diary-backend>
 
 - Move into project directory
